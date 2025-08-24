@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Declaración 💖</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    /* Pantalla inicial */
+    #pantalla1 {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: url('https://i.pinimg.com/originals/dd/7b/19/dd7b19fc9bf0d477f311093ffe0a094e.gif') no-repeat center center;
+	  background-size: cover;
+      text-align: center;
+    }
+    #pantalla1 p {
+      font-size: 28px;
+      color: #d63384;
+      font-weight: bold;
+    }
+    .botones {
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    #yesBtn {
+      background: #ff4d6d;
+      color: white;
+    }
+    #noBtn {
+      background: #999;
+      color: white;
+    }
+
+    /* Pantalla burbujas */
+    #pantalla2 {
+      display: none; /* oculta al inicio */
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: url('https://img.freepik.com/vector-gratis/tema-san-valentin-corazones-cielo-rosa_1308-38030.jpg?semt=ais_hybrid&w=740') no-repeat center center;
+      background-size: cover;
+      position: relative;
+      text-align: center;
+    }
+    .message {
+      background: rgba(255, 255, 255, 0.8);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+      font-size: 28px;
+      color: #d63384;
+      font-weight: bold;
+      margin-bottom: 25px;
+      animation: bounce 1s infinite;
+      z-index: 2;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    .text-bubble {
+      position: absolute;
+      font-size: 18px;
+      font-family: 'Cursive', sans-serif;
+      color: #d63384;
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 10px 20px;
+      border-radius: 25px;
+      animation: floatText 8s ease-in-out forwards;
+      white-space: nowrap;
+    }
+    @keyframes floatText {
+      0% { opacity: 0; transform: scale(0.5) translateY(0px); }
+      50% { opacity: 1; transform: scale(1.2) translateY(-50px); }
+      100% { opacity: 0; transform: scale(1) translateY(-100px); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Pantalla 1 -->
+  <div id="pantalla1">
+    <p>¿PUEDO SER TU NOVIO?</p>
+    <img src="declaracion.jpg" width="200">
+    <div class="botones">
+      <button id="yesBtn">SI</button>
+      <button id="noBtn">NO</button>
+    </div>
+  </div>
+
+  <!-- Pantalla 2 -->
+  <div id="pantalla2">
+    <div class="message">I Love You ❤️</div>
+    <div id="bubbles-text"></div>
+  </div>
+
+  <!-- Música (se mantiene entre pantallas) -->
+  <audio id="miAudio" loop>
+    <source src="cancion.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio en HTML5.
+  </audio>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const audio = document.getElementById("miAudio");
+
+    // Pantallas
+    const pantalla1 = document.getElementById("pantalla1");
+    const pantalla2 = document.getElementById("pantalla2");
+
+    // Al presionar "SI"
+    yesBtn.addEventListener("click", () => {
+      alert("💖 SABÍA QUE DIRÍAS SÍ 💖");
+      alert("TE QUIERO Y TE AMO MUCHÍSIMO 😘");
+
+      pantalla1.style.display = "none";   // oculta la 1
+      pantalla2.style.display = "flex";   // muestra la 2
+      audio.play(); // empieza la música
+      iniciarBurbujas();
+    });
+
+    // Hacer que el "NO" se escape
+    noBtn.addEventListener("mouseover", () => {
+      const x = Math.floor(Math.random() * (window.innerWidth - 100));
+      const y = Math.floor(Math.random() * (window.innerHeight - 100));
+      noBtn.style.position = "absolute";
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    });
+
+    // Función para crear burbujas de texto
+    function iniciarBurbujas() {
+      const messages = [
+        "Te amo muchísimo ❤️",
+        "Siempre sera mi niña hermosa 🌟",
+        "Eres mi persona favorita 💕",
+        "Juntos por siempre 🥰",
+        "Tú y yo, para siempre 💖",
+        "Tu belleza me ilumina 💫",
+        "Eres lo mejor que me ha pasado 😘️",
+        "Cada momento contigo es mágico ✨",
+        "Siempre pienso en ti 💭",
+        "Mi corazón es tuyo 💘"
+      ];
+      setInterval(() => {
+        const bubble = document.createElement("div");
+        bubble.className = "text-bubble";
+        bubble.innerText = messages[Math.floor(Math.random() * messages.length)];
+        bubble.style.left = Math.random() * 80 + "vw";
+        bubble.style.top = Math.random() * 80 + "vh";
+        document.getElementById("bubbles-text").appendChild(bubble);
+        setTimeout(() => bubble.remove(), 8000);
+      }, 500);
+    }
+  </script>
+</body>
+</html>
